@@ -1,3 +1,8 @@
+using Microsoft.EntityFrameworkCore;
+using MVC1.DAL.Context;
+using MVC1.DAL.Repositories;
+using MVC1.DAL.Repositories.Interfaces;
+
 namespace MVC1
 {
     public class Program
@@ -8,6 +13,11 @@ namespace MVC1
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IPlanRepository, PlanRepository>();
+            builder.Services.AddDbContext<GymDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             var app = builder.Build();
 

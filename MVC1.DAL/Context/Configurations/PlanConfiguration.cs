@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using MVC1.Models;
+using MVC1.DAL.Models;
 
-namespace MVC1.Context.Configurations
+namespace MVC1.DAL.Context.Configurations
 {
     public class PlanConfiguration : IEntityTypeConfiguration<Plan>
     {

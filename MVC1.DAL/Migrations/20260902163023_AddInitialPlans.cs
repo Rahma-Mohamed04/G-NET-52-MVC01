@@ -4,7 +4,7 @@
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace MVC1.Migrations
+namespace MVC1.DAL.Migrations
 {
     /// <inheritdoc />
     public partial class AddInitialPlans : Migration
