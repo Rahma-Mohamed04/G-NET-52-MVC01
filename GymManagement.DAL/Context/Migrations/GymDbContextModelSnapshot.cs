@@ -559,18 +559,18 @@ namespace GymManagement.DAL.Context.Migrations
                             b1.Property<int>("MemberId")
                                 .HasColumnType("int");
 
+                            b1.Property<int?>("BuildingNumber")
+                                .HasColumnType("int");
+
                             b1.Property<string>("City")
-                                .IsRequired()
                                 .HasMaxLength(30)
                                 .HasColumnType("varchar")
                                 .HasColumnName("City");
 
                             b1.Property<string>("Country")
-                                .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Street")
-                                .IsRequired()
                                 .HasMaxLength(30)
                                 .HasColumnType("varchar")
                                 .HasColumnName("Street");
@@ -631,18 +631,18 @@ namespace GymManagement.DAL.Context.Migrations
                             b1.Property<int>("TrainerId")
                                 .HasColumnType("int");
 
+                            b1.Property<int?>("BuildingNumber")
+                                .HasColumnType("int");
+
                             b1.Property<string>("City")
-                                .IsRequired()
                                 .HasMaxLength(30)
                                 .HasColumnType("varchar")
                                 .HasColumnName("City");
 
                             b1.Property<string>("Country")
-                                .IsRequired()
                                 .HasColumnType("nvarchar(max)");
 
                             b1.Property<string>("Street")
-                                .IsRequired()
                                 .HasMaxLength(30)
                                 .HasColumnType("varchar")
                                 .HasColumnName("Street");
