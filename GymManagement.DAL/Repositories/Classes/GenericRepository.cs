@@ -13,17 +13,16 @@ namespace GymManagement.DAL.Repositories.Classes
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity, new()
     {
-        private readonly GymDbContext context;
+        protected readonly GymDbContext context;
         private readonly DbSet<TEntity> set;
         public GenericRepository(GymDbContext _context)
         {
             context = _context;
             set = context.Set<TEntity>();
         }
-        public async Task<int> AddAsync(TEntity entity, CancellationToken ct = default)
+        public void AddAsync(TEntity entity, CancellationToken ct = default)
         {
             set.Add(entity);
-            return await context.SaveChangesAsync(ct);
         }
 
         public async Task<bool> AnyAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken ct = default)
@@ -31,10 +30,9 @@ namespace GymManagement.DAL.Repositories.Classes
             return await set.AnyAsync(predicate, ct);
         }
 
-        public async Task<int> DeleteAsync(TEntity entity, CancellationToken ct = default)
+        public void DeleteAsync(TEntity entity, CancellationToken ct = default)
         {
             set.Remove(entity);
-            return await context.SaveChangesAsync(ct);
         }
 
         public async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, bool tracking = false, CancellationToken ct = default)
@@ -53,10 +51,9 @@ namespace GymManagement.DAL.Repositories.Classes
             return await set.FindAsync(Id, ct);
         }
 
-        public async Task<int> UpdateAsync(TEntity entity, CancellationToken ct = default)
+        public void UpdateAsync(TEntity entity, CancellationToken ct = default)
         {
             set.Update(entity);
-            return await context.SaveChangesAsync(ct);
         }
     }
 }

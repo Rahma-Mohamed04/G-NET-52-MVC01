@@ -5,6 +5,7 @@ using GymManagement.DAL.Repositories.Interfaces;
 using GymManagement.DAL.Repositories.Classes;
 using GymManagement.BLL.Services.Interfaces;
 using GymManagement.BLL.Services.Classes;
+using GymManagement.BLL.Profiles;
 
 namespace GymManagement
 {
@@ -18,11 +19,14 @@ namespace GymManagement
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IMemberService, MemberService>();
+            builder.Services.AddScoped<ISessionService, SessionService>();
+            builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddDbContext<GymDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });
-
+            builder.Services.AddAutoMapper(m => m.AddProfile(new MappingProfile()));
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
