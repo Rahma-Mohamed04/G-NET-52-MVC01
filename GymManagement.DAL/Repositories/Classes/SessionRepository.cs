@@ -16,6 +16,12 @@ namespace GymManagement.DAL.Repositories.Classes
         {
             
         }
+
+        public async Task<Session?> GetSessionByIdWithTrainerAndCategory(int sessionId, CancellationToken ct = default)
+        {
+            return await context.Sessions.AsNoTracking().Include(s => s.Trainer).Include(s => s.Category).FirstOrDefaultAsync(s => s.Id == sessionId);
+        }
+
         public async Task<IEnumerable<Session>> GetAllSessionsWithTrainerAndCategory(CancellationToken ct = default)
         {
             var result = context.Sessions.AsNoTracking().Include(s => s.Trainer).Include(s => s.Category);
