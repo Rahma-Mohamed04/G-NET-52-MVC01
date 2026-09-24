@@ -14,10 +14,12 @@ namespace GymManagement.BLL.Services.Classes
     public class MemberService : IMemberService
     {
         private readonly IUnitOfWork unitOfWork;
+        private readonly IAttachmentService attachmentService;
 
-        public MemberService(IUnitOfWork _unitOfWork)
+        public MemberService(IUnitOfWork _unitOfWork, IAttachmentService attachmentService)
         {
             unitOfWork = _unitOfWork;
+            this.attachmentService = attachmentService;
         }
 
         public async Task<bool> CreateMemberAsync(CreateMemberViewModel model, CancellationToken ct = default)
@@ -27,11 +29,15 @@ namespace GymManagement.BLL.Services.Classes
 
             if (EmailExist || PhoneExist) return false;
 
+            var StoredPhotoName = await attachmentService.UploadAsync(model.PhotoFile.OpenReadStream(), model.PhotoFile.FileName, "MembersPhoto");
+            if (string.IsNullOrEmpty(StoredPhotoName)) return false;
+
             var member = new Member()
             {
                 Name = model.Name,
                 Email = model.Email,
                 Phone = model.Phone,
+                Photo = StoredPhotoName,
                 Gender = model.Gender,
                 DateOfBirth = model.DateOfBirth,
                 Address = new Address()
@@ -51,7 +57,13 @@ namespace GymManagement.BLL.Services.Classes
 
             unitOfWork.GetRepository<Member>().AddAsync(member);
             var result = await unitOfWork.SaveChangesAsync();
-            return result > 0;
+            if (result > 0)
+                return true;
+            else
+            {
+                attachmentService.Delete(StoredPhotoName, "MembersPhoto");
+                return false;
+            }
         }
 
         public async Task<bool> DeleteMemberAsync(int id, CancellationToken ct = default)
@@ -95,6 +107,7 @@ namespace GymManagement.BLL.Services.Classes
 
             var model = new MemberViewModel()
             {
+                Id = member.Id,
                 Name = member.Name,
                 Email = member.Email,
                 Phone = member.Phone,

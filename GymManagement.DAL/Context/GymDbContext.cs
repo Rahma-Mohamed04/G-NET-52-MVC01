@@ -2,21 +2,19 @@
 using GymManagement.DAL.Context.Configurations;
 using GymManagement.DAL.Models;
 using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace GymManagement.DAL.Context
 {
-    public class GymDbContext : DbContext
+    public class GymDbContext : IdentityDbContext<ApplicationUser>
     {
         public GymDbContext(DbContextOptions options) : base(options)
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Server=.;Database=GymSystem;Trusted_Connection=true;TrustServerCertificate=true");
-        //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
