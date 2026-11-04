@@ -54,7 +54,7 @@ namespace GymManagement.BLL.Services.Classes
 
         public async Task<IEnumerable<TrainerViewModel>> GetAllTrainersAsync()
         {
-            var result = await unitOfWork.GetRepository<Trainer>().GetAllAcync();
+            var result = await unitOfWork.GetRepository<Trainer>().GetAllAsync();
             var trainers = mapper.Map<IEnumerable<TrainerViewModel>>(result);
             return trainers;
         }

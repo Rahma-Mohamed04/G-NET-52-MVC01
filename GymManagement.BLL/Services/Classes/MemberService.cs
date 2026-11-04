@@ -81,7 +81,7 @@ namespace GymManagement.BLL.Services.Classes
 
         public async Task<IEnumerable<MemberViewModel>> GetAllMembersAsync(CancellationToken ct = default)
         {
-            var members = await unitOfWork.GetRepository<Member>().GetAllAcync(ct: ct);
+            var members = await unitOfWork.GetRepository<Member>().GetAllAsync(ct: ct);
             if (!members.Any()) return new List<MemberViewModel>();
             
             List<MemberViewModel> membersVM = new List<MemberViewModel>();

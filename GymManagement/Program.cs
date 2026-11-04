@@ -22,9 +22,11 @@ namespace GymManagement
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IMemberService, MemberService>();
+            builder.Services.AddScoped<IMembershipService, MembershipService>();
             builder.Services.AddScoped<ISessionService, SessionService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<ISessionRepository, SessionRepository>();
+            builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IAttachmentService, AttachmentService>();
             builder.Services.AddDbContext<GymDbContext>(options =>

@@ -6,16 +6,16 @@ using GymManagement.DAL.Models;
 
 namespace GymManagement.Controllers
 {
-    public class PlansController : Controller
+    public class PlanController : Controller
     {
         private readonly IGenericRepository<Plan> planRepo;
-        public PlansController(IGenericRepository<Plan> _planRepo)
+        public PlanController(IGenericRepository<Plan> _planRepo)
         {
             planRepo = _planRepo;
         }
         public async Task<IActionResult> Index()
         {
-            var plans = await planRepo.GetAllAcync();
+            var plans = await planRepo.GetAllAsync();
             return View(plans);
         }
         public async Task<IActionResult> Details(int Id)
